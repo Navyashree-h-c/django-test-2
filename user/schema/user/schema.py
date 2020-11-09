@@ -1,23 +1,23 @@
 import graphene
-from blog.schema.blog.blog_schema import Blog, BlogModel, CreateBlog, UpdateBlog, DeleteBlog
-from blog.model.blog.blog_management_model import BlogManagement
+from user.schema.user.user_schema import User, UserModel, CreateUser, UpdateUser, DeleteUser
+from user.model.user.user_management_model import UserManagement
 
 class Query(graphene.ObjectType):
 
-    blogs = graphene.List(   
-        Blog,
+    users = graphene.List(   
+        User,
         size=graphene.Int(required=True),
         page=graphene.Int(required=True)
     )
 
-    blog = graphene.Field(
-        Blog,
+    user = graphene.Field(
+        User,
         id = graphene.Int(required=True)
     )	    
 
-    def resolve_blogs(self, info, size, page):
+    def resolve_users(self, info, size, page):
         '''
-        resolve_blogs: return list of blogs
+        resolve_users: return list of users
 
         Args:
             size: integer size
@@ -39,20 +39,20 @@ class Query(graphene.ObjectType):
 
         # print(temp_array)
         
-        return BlogManagement.get_list_of_blogs()
+        return UserManagement.get_list_of_users()
 
 
-    def resolve_blog(self, info, id):
+    def resolve_user(self, info, id):
         '''
-        resolve_blog: return blog by id
+        resolve_user: return user by id
 
         Args:
-            id (Integer): unique for blogs
+            id (Integer): unique for users
         '''
-        return BlogManagement.get_blog_by_id(id)
+        return UserManagement.get_user_by_id(id)
         
 
 class Mutations(graphene.ObjectType):
-    create_blog = CreateBlog.Field()
-    update_blog = UpdateBlog.Field()
-    delete_blog = DeleteBlog.Field()
+    create_user = CreateUser.Field()
+    update_user = UpdateUser.Field()
+    delete_user = DeleteUser.Field()

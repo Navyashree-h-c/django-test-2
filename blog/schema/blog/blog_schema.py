@@ -5,16 +5,20 @@ from django.utils import timezone
 
 class Blog(DjangoObjectType):
 
-    # user_blogs = graphene.List(BlogModel)
+    # For having model inside a model
+    # i.e create another schema profile schema and use this
+    # mutations{profile{name id createBlog{blog{name}}}}
+    # user_blogs = graphene.List(Profile)
+    
+    # def resolve_user_blogs(self, info):
+    #     '''
+    #     resolve_user_blogs: return Profile objects
+    #     '''
+    #     return Profile.objects.all()
 
     class Meta:
         model = BlogModel
 
-    # def resolve_user_blogs(self, info):
-    #     '''
-    #     resolve_user_blogs: return BlogModel objects
-    #     '''
-    #     return BlogModel.objects.all()
 
 #Mutation Insertion
 class CreateBlog(graphene.Mutation):

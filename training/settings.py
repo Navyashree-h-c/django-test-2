@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'blog.apps.BlogConfig',
+    'user.apps.UserConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -127,5 +128,54 @@ STATIC_URL = '/static/'
 
 GRAPHENE = {
     "SCHEMA": "training.schema.schema"
+}
+
+LOGGING = {     
+    'version': 1,     
+    'disable_existing_loggers': False,     
+    'formatters': {         
+        'standard': {             
+            'format': '{levelname} {filename} {process} {asctime}s {name}s.{funcName}s:{lineno} - {message} ',             
+            'style': '{',         
+        },         
+    'simple': {             
+        'format': '{levelname} {name} - {message}',             
+        'style': '{',         
+        },     
+    },     
+    'handlers': {         
+        'standard-console': {             
+            'level': 'WARNING',             
+            'class': 'logging.StreamHandler',             
+            'formatter': 'standard'         
+            },         
+            'file': {             
+                'level': 'DEBUG',             
+                'class': 'logging.StreamHandler',             
+                'formatter': 'standard'         
+            },         
+            'console': {             
+                'level': 'ERROR',             
+                'class': 'logging.StreamHandler',             
+                'formatter': 'standard'         
+            },     
+    },     
+    'loggers': {         
+        'blog': {             
+            'handlers': ['standard-console', 'file'],             
+            'propagate': True,             
+            'level': 'DEBUG',         
+        }, 
+        'user': {             
+            'handlers': ['file'],             
+            'propagate': True,             
+            'level': 'DEBUG',         
+        },         
+        'django': {             
+            'handlers': ['console'],             
+            'propagate': True,             
+            'level': 'DEBUG',         
+        },     
+    }, 
 }
 
